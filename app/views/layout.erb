@@ -19,6 +19,10 @@
         <%= yield %>
 
       <footer class="branding">
+      <% if logged_in? %>
+        <h4><a href="/logout">Log Out</h4>
+      <% end %>
+      <br>
         <small>&copy; 2019 <strong>SinatraPortfolioProject</strong></small>
       </footer>
     </div>
