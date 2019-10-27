@@ -1,0 +1,7 @@
+<form method="POST" action="/legos/<%= @lego.id %>">
+    <input type="hidden" id="hidden" name="_method" value="PATCH">
+    <input type="text" name="name" value="<%= @lego.name %>">
+    <input type="text" name="theme" value="<%= @lego.theme %>">
+    <input type="text" name="num_of_pieces" value="<%= @lego.num_of_pieces.to_s %>">
+    <input type="submit" value="Submit Changes">
+</form>

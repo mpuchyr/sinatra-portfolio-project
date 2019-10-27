@@ -32,4 +32,25 @@ class LegoController < ApplicationController
             redirect '/legos/new'
         end
     end
+
+    get '/legos/:id/edit' do
+        user = User.find_by_id(session[:user_id])
+        @lego = Lego.find_by_id(params[:id])
+        if @lego.user_id == user.id
+            erb :'/legos/edit'
+        else
+            redirect '/user'
+        end
+    end
+
+    patch '/legos/:id' do
+        binding.pry
+        @lego = Lego.find_by_id(params[:id])
+        params.delete("_method")
+        if @lego.update(params)
+            redirect "/legos/#{@lego.id}"
+        else
+            redirect "/legos/#{@lego.id}/edit"
+        end
+    end
 end
