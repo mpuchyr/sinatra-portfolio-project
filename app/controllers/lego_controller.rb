@@ -9,18 +9,21 @@ class LegoController < ApplicationController
         theme = params[:theme]
         num_of_pieces = params[:num_of_pieces].to_i
         lego = Lego.new(name: name, theme: theme, num_of_pieces: num_of_pieces)
-        if lego.save
-            user = User.find_by_id(session[:user_id])
-            user.legos << lego
-            redirect "/legos/#{lego.id}"
+        if session[:user_id]
+            if lego.save
+                user = User.find_by_id(session[:user_id])
+                user.legos << lego
+                redirect "/legos/#{lego.id}"
+            else
+                redirect '/legos/new'
+            end
         else
-            redirect '/legos/new'
+            redirect '/login'
         end
     end
 
     get '/legos/:id' do
         @lego = Lego.find_by_id(params[:id])
-        binding.pry
         if @lego
             erb :'/legos/show'
         else
