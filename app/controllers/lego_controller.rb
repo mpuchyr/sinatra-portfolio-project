@@ -58,7 +58,6 @@ class LegoController < ApplicationController
 
     delete '/legos/:id' do
         @lego = Lego.find_by_id(params[:id])
-        binding.pry
         if @lego.user.id == current_user.id
             @lego.delete
             redirect '/user'

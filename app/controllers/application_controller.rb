@@ -14,6 +14,10 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/signup' do
+    if session[:errors]
+      @errors = session[:errors]
+      session.delete(:errors)
+    end
     erb :signup
   end
 
@@ -22,6 +26,7 @@ class ApplicationController < Sinatra::Base
     if user.save
       redirect :login
     else
+      session[:errors] = user.errors.full_messages
       redirect '/signup'
     end
   end
@@ -63,6 +68,7 @@ class ApplicationController < Sinatra::Base
     def current_user
       @user ||= User.find_by(id: session[:user_id])
     end
+
   end
 
 end
