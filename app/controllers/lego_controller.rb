@@ -1,7 +1,11 @@
 class LegoController < ApplicationController
 
     get '/legos/new' do
-        erb :'/legos/new'
+        if session[:user_id]
+            erb :'/legos/new'
+        else
+            redirect '/'
+        end
     end
 
     post '/legos/new' do
@@ -9,17 +13,15 @@ class LegoController < ApplicationController
         theme = params[:theme]
         num_of_pieces = params[:num_of_pieces].to_i
         lego = Lego.new(name: name, theme: theme, num_of_pieces: num_of_pieces)
-        if session[:user_id]
-            if lego.save
-                user = User.find_by_id(session[:user_id])
-                user.legos << lego
-                redirect "/legos/#{lego.id}"
-            else
-                redirect '/legos/new'
-            end
+
+        if lego.save
+            user = User.find_by_id(session[:user_id])
+            user.legos << lego
+            redirect "/legos/#{lego.id}"
         else
-            redirect '/login'
+            redirect '/legos/new'
         end
+
     end
 
     get '/legos/:id' do
