@@ -1,1 +1,11 @@
 <h1>Welcome <%= @user.username %></h1>
+
+<h2>Your Lego Sets</h2>
+<% @user.legos.each do |lego| %>
+    <div>
+        <h3><%= lego.name %></h3>
+        <h4>Theme: <%= lego.theme %></h4>
+        <h4>No. of Pieces: <%= lego.num_of_pieces %></h4>
+        <hr>
+    </div>
+<% end %>
