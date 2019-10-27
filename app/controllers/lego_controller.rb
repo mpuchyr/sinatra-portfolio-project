@@ -25,6 +25,7 @@ class LegoController < ApplicationController
     end
 
     get '/legos/:id' do
+        @user = User.find_by_id(session[:user_id])
         @lego = Lego.find_by_id(params[:id])
         if @lego
             erb :'/legos/show'
@@ -34,12 +35,16 @@ class LegoController < ApplicationController
     end
 
     get '/legos/:id/edit' do
-        user = User.find_by_id(session[:user_id])
-        @lego = Lego.find_by_id(params[:id])
-        if @lego.user_id == user.id
-            erb :'/legos/edit'
+        if session[:user_id]
+            user = User.find_by_id(session[:user_id])
+            @lego = Lego.find_by_id(params[:id])
+            if @lego.user_id == user.id
+                erb :'/legos/edit'
+            else
+                redirect '/user'
+            end
         else
-            redirect '/user'
+            redirect '/login'
         end
     end
 
