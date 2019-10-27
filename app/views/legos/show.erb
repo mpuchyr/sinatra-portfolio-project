@@ -3,5 +3,5 @@
 <h3><%= @lego.num_of_pieces %></h3>
 
 <% if @user && (@user.id == @lego.user_id) %>
-    <a href="/legos/#{@lego.id}/edit">Edit</a>
+    <a href="/legos/<%= @lego.id %>/edit">Edit</a>
 <% end %>

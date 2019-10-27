@@ -15,8 +15,7 @@ class LegoController < ApplicationController
         lego = Lego.new(name: name, theme: theme, num_of_pieces: num_of_pieces)
 
         if lego.save
-            user = User.find_by_id(session[:user_id])
-            user.legos << lego
+            current_user.legos << lego
             redirect "/legos/#{lego.id}"
         else
             redirect '/legos/new'
@@ -36,9 +35,8 @@ class LegoController < ApplicationController
 
     get '/legos/:id/edit' do
         if session[:user_id]
-            user = User.find_by_id(session[:user_id])
             @lego = Lego.find_by_id(params[:id])
-            if @lego.user_id == user.id
+            if @lego.user_id == current_user.id
                 erb :'/legos/edit'
             else
                 redirect '/user'
@@ -49,13 +47,23 @@ class LegoController < ApplicationController
     end
 
     patch '/legos/:id' do
-        binding.pry
         @lego = Lego.find_by_id(params[:id])
         params.delete("_method")
         if @lego.update(params)
             redirect "/legos/#{@lego.id}"
         else
             redirect "/legos/#{@lego.id}/edit"
+        end
+    end
+
+    delete '/legos/:id' do
+        @lego = Lego.find_by_id(params[:id])
+        binding.pry
+        if @lego.user.id == current_user.id
+            @lego.delete
+            redirect '/user'
+        else
+            redirect '/user'
         end
     end
 end
