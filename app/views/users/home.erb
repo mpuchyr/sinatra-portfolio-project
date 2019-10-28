@@ -2,12 +2,12 @@
 
 <h2>Your Lego Sets</h2>
 <br>
-<a href="/legos/new">New Lego Set</a>
+<button><a href="/legos/new">New Lego Set</a></button>
 <br>
 <br>
 <% @user.legos.each do |lego| %>
     <div>
-        <h3><%= lego.name %></h3>
+        <h3><a href="/legos/<%= lego.id %>/edit" ><%= lego.name %></a></h3>
         <h4>Theme: <%= lego.theme %></h4>
         <h4>No. of Pieces: <%= lego.num_of_pieces %></h4>
         <hr>
