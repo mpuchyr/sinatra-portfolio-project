@@ -1,3 +1,11 @@
+button.new {
+    padding: 10px;
+    font-size: 24px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 12px;
+}
+
 table {
     margin-left: auto;
     margin-right: auto;

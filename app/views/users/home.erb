@@ -3,11 +3,16 @@
 
 <h2>Your Lego Sets</h2>
 <br>
-<button><a href="/legos/new">New Lego Set</a></button>
+
 <br>
 <br>
 <% legos = @user.legos.order('name') %>
 <table class="lego-table">
+    <tr>
+        <td>
+            <a href="/legos/new"><button class="new">New Lego Set</button></a>
+        </td>
+    </tr>
 <% legos.each do |lego| %>
     <tr>
         <td>
