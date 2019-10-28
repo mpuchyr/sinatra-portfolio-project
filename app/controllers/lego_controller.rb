@@ -16,7 +16,7 @@ class LegoController < ApplicationController
 
         if lego.save
             current_user.legos << lego
-            redirect "/legos/#{lego.id}"
+            redirect '/user'
         else
             redirect '/legos/new'
         end
