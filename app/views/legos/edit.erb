@@ -1,8 +1,17 @@
 <form method="POST" action="/legos/<%= @lego.id %>">
     <input type="hidden" id="hidden" name="_method" value="PATCH">
+    <label for="name">Name: </label>
     <input type="text" name="name" value="<%= @lego.name %>">
+    <br>
+    <label for="theme">Theme: </label>
     <input type="text" name="theme" value="<%= @lego.theme %>">
+    <br>
+    <label for="num_of_pieces">Number of Piece: </label>
     <input type="text" name="num_of_pieces" value="<%= @lego.num_of_pieces.to_s %>">
+    <br>
+    <label for="img_link">Image Link: </label>
+    <input type="text" name="img_link" value="<%= @lego.img_link %>">
+    <br>
     <input type="submit" value="Submit Changes">
 </form>
 <br>
