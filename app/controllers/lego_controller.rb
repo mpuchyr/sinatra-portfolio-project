@@ -2,6 +2,10 @@ class LegoController < ApplicationController
 
     get '/legos/new' do
         if session[:user_id]
+            if session[:errors]
+                @errors = session[:errors]
+                session.delete(:errors)
+            end
             erb :'/legos/new'
         else
             redirect '/'
@@ -18,6 +22,7 @@ class LegoController < ApplicationController
             current_user.legos << lego
             redirect '/user'
         else
+            session[:errors] = lego.errors.full_messages
             redirect '/legos/new'
         end
 
