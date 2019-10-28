@@ -32,6 +32,10 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/login' do
+    if session[:errors]
+      @errors = session[:errors]
+      session.delete(:errors)
+    end
     erb :login
   end
 
@@ -41,6 +45,7 @@ class ApplicationController < Sinatra::Base
       session[:user_id] = user.id
       redirect '/user'
     else
+      session[:errors] = ["Username or password was incorrect. Please try again."]
       redirect '/login'
     end
   end
