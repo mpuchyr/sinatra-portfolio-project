@@ -1,7 +1,9 @@
 <h1><%= @lego.name %></h1>
 <h3><%= @lego.theme %></h3>
 <h3><%= @lego.num_of_pieces %></h3>
-<h3><%= @lego.img_link %></h3>
+<% if @lego.img_link %>
+    <img src="<%= @lego.img_link %>">
+<% end %>
 
 <% if @user && (@user.id == @lego.user_id) %>
     <button><a href="/user">Home</a></button>
