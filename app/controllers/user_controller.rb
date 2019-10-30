@@ -4,7 +4,11 @@ class UserController < ApplicationController
           @errors = session[:errors]
           session.delete(:errors)
         end
-        erb :signup
+        if !logged_in?
+          erb :signup
+        else
+          redirect '/'
+        end
       end
     
       post '/signup' do
@@ -22,7 +26,11 @@ class UserController < ApplicationController
           @errors = session[:errors]
           session.delete(:errors)
         end
-        erb :login
+        if !logged_in?
+          erb :login
+        else
+          redirect '/'
+        end
       end
     
       post '/login' do
@@ -46,7 +54,9 @@ class UserController < ApplicationController
       end
     
       get '/logout' do
-        session.clear
+        if logged_in?
+          session.clear
+        end
         redirect '/'
       end
 end
