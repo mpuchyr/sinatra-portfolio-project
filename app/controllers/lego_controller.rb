@@ -1,5 +1,7 @@
 class LegoController < ApplicationController
 
+
+
     get '/legos/new' do
         if session[:user_id]
             if session[:errors]
@@ -15,7 +17,8 @@ class LegoController < ApplicationController
     post '/legos/new' do
         name = params[:name]
         num_of_pieces = params[:num_of_pieces].to_i
-        lego = Lego.new(name: name, num_of_pieces: num_of_pieces)
+        img_link = params[:img_link]
+        lego = Lego.new(name: name, num_of_pieces: num_of_pieces, img_link: img_link)
 
         if lego.save
             if params[:new_theme] != ""
@@ -31,6 +34,10 @@ class LegoController < ApplicationController
             redirect '/legos/new'
         end
 
+    end
+
+    get '/legos/all' do
+        erb :'/legos/all'
     end
 
     get '/legos/:id' do
@@ -84,4 +91,6 @@ class LegoController < ApplicationController
             redirect '/user'
         end
     end
+
+
 end
