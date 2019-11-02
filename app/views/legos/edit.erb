@@ -4,7 +4,14 @@
     <input type="text" name="name" value="<%= @lego.name %>">
     <br>
     <label for="theme">Theme: </label>
-    <input type="text" name="theme" value="<%= @lego.theme %>">
+    <% Theme.all.each do |theme| %>
+        <input type="radio" name="theme" value="<%= theme.name %>" 
+            <%if @lego.theme.id == theme.id %>checked<% end %>>
+            <%= theme.name %>
+    <% end %>
+    <br>
+    <label for="theme">New Theme: </label>
+    <input type="text" name="new_theme">
     <br>
     <label for="num_of_pieces">Number of Piece: </label>
     <input type="text" name="num_of_pieces" value="<%= @lego.num_of_pieces.to_s %>">

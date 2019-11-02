@@ -14,11 +14,16 @@ class LegoController < ApplicationController
 
     post '/legos/new' do
         name = params[:name]
-        theme = params[:theme]
         num_of_pieces = params[:num_of_pieces].to_i
-        lego = Lego.new(name: name, theme: theme, num_of_pieces: num_of_pieces)
+        lego = Lego.new(name: name, num_of_pieces: num_of_pieces)
 
         if lego.save
+            if params[:new_theme] != ""
+                theme = Theme.find_or_create_by(name: params[:new_theme])
+            elsif params[:theme]
+                theme = Theme.find_or_create_by(name: params[:theme])
+            end
+            theme.legos << lego
             current_user.legos << lego
             redirect '/user'
         else
@@ -53,8 +58,17 @@ class LegoController < ApplicationController
 
     patch '/legos/:id' do
         @lego = Lego.find_by_id(params[:id])
+        name = params[:name]
+        if params[:new_theme] != ""
+            theme = Theme.find_or_create_by(name: params[:new_theme])
+        elsif params[:theme]
+            theme = Theme.find_or_create_by(name: params[:theme])
+        end
+        pieces = params[:num_of_pieces]
+        img = params[:img_link]
         params.delete("_method")
-        if @lego.update(params)
+        if @lego.update(name: name, num_of_pieces: pieces, img_link: img)
+            theme.legos << @lego
             redirect "/legos/#{@lego.id}"
         else
             redirect "/legos/#{@lego.id}/edit"

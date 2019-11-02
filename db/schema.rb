@@ -11,14 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191028201808) do
+ActiveRecord::Schema.define(version: 20191102164437) do
 
   create_table "legos", force: :cascade do |t|
     t.string  "name"
-    t.string  "theme"
     t.integer "num_of_pieces"
     t.integer "user_id"
     t.string  "img_link"
+    t.integer "theme_id"
+  end
+
+  create_table "themes", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "users", force: :cascade do |t|

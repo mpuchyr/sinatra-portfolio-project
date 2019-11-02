@@ -7,7 +7,12 @@
     <input type="text" name="name">
     <br>
     <label for="theme">Theme: </label>
-    <input type="text" name="theme">
+    <% Theme.all.each do |theme| %>
+        <input type="radio" name="theme" value="<%= theme.name %>"><%= theme.name %>
+    <% end %>
+    <br>
+    <labe for="theme">New Theme: </label>
+    <input type="text" name="new_theme">
     <br>
     <label for="num_of_pieces">No. of Pieces: </label>
     <input type="text" name="num_of_pieces">
