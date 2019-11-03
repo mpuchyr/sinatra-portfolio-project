@@ -15,12 +15,10 @@ table {
     outline: none;
 }
 .lego-table tr {
-    background-color: gray;
     outline: thin solid black;
 }
 
 .lego-table td {
-    background-color: gray;
     padding: 10px;
 }
 
