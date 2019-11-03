@@ -37,7 +37,11 @@ class LegoController < ApplicationController
     end
 
     get '/legos/all' do
-        erb :'/legos/all'
+        if logged_in?
+            erb :'/legos/all'
+        else
+            redirect '/'
+        end
     end
 
     get '/legos/:id' do
